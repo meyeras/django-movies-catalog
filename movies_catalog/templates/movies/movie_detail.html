@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{movie.title}}{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/movies/movie_detail.css' %}">
+          <div class="movie-detail-container">
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }} poster">
+            <div class="movie-info">
+                <p><strong>Director:</strong> {{ movie.director }}</p>
+                <p><strong>Actors:</strong> {{ movie.actors.all|join:', ' }}</p>
+                <p><strong>Year of Release:</strong> {{ movie.year_of_release }}</p>
+                <p><strong>Description:</strong></p>
+                <p>{{ movie.description }}</p>
+            </div>
+        </div>
+
+{% endblock %}

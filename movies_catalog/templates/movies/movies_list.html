@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Movies Catalog{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/movies/movies_list.css' %}">
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <form method="GET" action="{% url 'movies-list' %}" class="search-form">
+                <input type="text" name="q" value="{{ search_query }}" placeholder="Search by title or actor" class="search-input">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+        </div>
+
+        <div class="movie-grid">
+            {% for movie in movies %}
+            <div class="movie-card">
+                <a href="{% url 'movie-detail' movie.id %}">
+                    <img src="{{ movie.poster.url }}" alt="{{ movie.title }} poster">
+                </a>
+                <h2>{{ movie.title }}</h2>
+                <p>{{ movie.year_of_release }}</p>
+            </div>
+            {% endfor %}
+        </div>
+{% endblock %}

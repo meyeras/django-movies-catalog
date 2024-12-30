@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Django App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <a href="{% url 'movies_list' %}" class="logo">Home</a>
+            </div>
+            <div class="nav-right">
+                {% if user.is_authenticated %}
+                    <span class="welcome-message">Welcome, {{ user.username }}!</span>
+                    <a href="{% url 'user_logout' %}" class="nav-link">Logout</a>
+                    {% if user.is_staff or user.is_superuser %}
+                        <a href="{% url 'register-movie' %}" class="nav-link">Register Movie</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'user_login' %}" class="nav-link">Login</a>
+                {% endif %}
+                <a href="{% url 'signup' %}" class="nav-link">Signup</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% if not user.is_authenticated %}
+            <div class="login-message">
+                <p>Please <a href="{% url 'user_login' %}">log in</a> to view the movies list.</p>
+            </div>
+        {% else %}
+            <!-- The main content (movies list) is only displayed if the user is logged in -->
+            {% block content %}
+            {% endblock %}
+        {% endif %}
+     </main>
+
+    <footer>
+        <p>&copy; 2024 My Django App</p>
+    </footer>
+</body>
+</html>

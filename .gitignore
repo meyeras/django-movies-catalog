@@ -1,0 +1,8 @@
+/.venv/
+/movies_catalog/media/posters/
+.idea/.gitignore
+.idea/misc.xml
+.idea/modules.xml
+.idea/MoviesCatalog.iml
+.idea/vcs.xml
+.idea/inspectionProfiles/profiles_settings.xml

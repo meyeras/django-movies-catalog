@@ -1,0 +1,85 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* This makes sure the logo and navigation are spaced out */
+    align-items: center; /* Vertically centers the content */
+}
+
+nav .nav-left {
+    display: flex;
+    align-items: center;
+}
+
+nav .logo {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+nav .nav-link {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px; /* Adds space between the links */
+    font-size: 16px;
+}
+
+nav .nav-link:hover {
+    text-decoration: underline;
+}
+
+nav .welcome-message {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 20px; /* Adds space between the welcome message and logout link */
+}
+
+.main-content {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-message {
+    background-color: #f9c2c2;
+    border: 1px solid #f8b8b8;
+    padding: 15px;
+    border-radius: 5px;
+    color: #a94442;
+    margin-bottom: 20px;
+}
+
+.login-message a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.login-message a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
