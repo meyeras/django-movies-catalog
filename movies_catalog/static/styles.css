@@ -6,7 +6,12 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Header */
 header {
+  flex: 0 0 auto; /* Fixed height */
+}
+
+header .nav-bar {
     background-color: #333;
     color: #fff;
     padding: 10px 20px;
@@ -15,38 +20,56 @@ header {
     align-items: center; /* Vertically centers the content */
 }
 
-nav .nav-left {
-    display: flex;
-    align-items: center;
+.nav-left {
+    flex: 1; /* Ensures it takes up equal space */
+    display: flex; /* Enables flexbox for alignment */
+    justify-content: flex-start; /* Aligns content to the left */
+    align-items: center; /* Vertically centers the Home link */
 }
 
-nav .logo {
-    color: white;
-    font-size: 20px;
+.logo {
     text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
-nav .nav-right {
-    display: flex;
-    align-items: center;
-}
-
-nav .nav-link {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px; /* Adds space between the links */
-    font-size: 16px;
-}
-
-nav .nav-link:hover {
+.logo:hover {
+    background-color: #555; /* Hover effect */
     text-decoration: underline;
 }
 
-nav .welcome-message {
-    font-size: 16px;
-    font-weight: bold;
-    margin-right: 20px; /* Adds space between the welcome message and logout link */
+/* Center Section */
+.nav-center {
+  flex: 1; /* Center section takes equal space */
+  text-align: center;
+}
+
+.welcome-message {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #f0f0f0;
+}
+
+/* Right Section */
+.nav-right {
+  flex: 1; /* Right section takes equal space */
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  gap: 1rem; /* Space between items */
+}
+
+nav .nav-link {
+    text-decoration: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+nav .nav-link:hover {
+    background-color: #555; /* Hover effect */
+    text-decoration: underline;
 }
 
 .main-content {
@@ -54,7 +77,7 @@ nav .welcome-message {
     padding: 20px;
     background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+ }
 
 .login-message {
     background-color: #f9c2c2;
@@ -79,7 +102,5 @@ footer {
     color: #fff;
     text-align: center;
     padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    flex: 0 0 auto; /* Fixed height */
 }

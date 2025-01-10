@@ -1,13 +1,9 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register New Movie</title>
-</head>
+{% block title %}{{movie.title}}{% endblock %}
+
+{% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/movies/register_movie.css' %}">
-<body>
     <div class="course-form">
         <h2>Register New Movie</h2>
         <form method="POST" enctype="multipart/form-data">
@@ -16,5 +12,4 @@
             <button type="submit">Register Movie</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
