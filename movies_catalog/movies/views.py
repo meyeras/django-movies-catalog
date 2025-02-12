@@ -17,9 +17,7 @@ from django.db.models import Q  # For complex lookups
 from .serializers import MovieSerializer
 
 
-def get_movies(request):
-    # Get the search query from the GET parameters
-    search_query = request.GET.get('q', '')  # 'q' is the query parameter
+def get_movies(request, search_query=None):
     movies = Movie.objects.all()
 
     if search_query:
@@ -43,7 +41,9 @@ def movies_list(request):
     return render(request, 'movies/movies_list.html', {'movies': movies})
 
 def movies_list_with_search(request):
-    movies = get_movies(request)
+    # Get the search query from the GET parameters
+    search_query = request.GET.get('q', '')  # 'q' is the query parameter
+    movies = get_movies(request, search_query)
     return render(request, 'movies/movies_list.html', {'movies': movies, 'search_query': search_query})
 
 def movie_detail(request, movie_id):
