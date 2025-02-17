@@ -1,5 +1,7 @@
 import json
 import asyncio
+import traceback
+
 import aiofiles
 import os
 from aiohttp import ClientSession, ClientError
@@ -7,50 +9,65 @@ from django.core.management.base import BaseCommand
 from django.conf import settings
 from movies.models import Movie, Actor
 
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+# import posixpath
+
 
 # Asynchronous function to check if the URL points to a valid image
 async def download_image_url(movie, session: ClientSession, semaphore, posters_folder) -> dict:
     url = movie["poster"]
-    os.makedirs(posters_folder, exist_ok=True)
-    file_name = url.split("/")[-1]
-    destination_path = os.path.join(posters_folder, file_name)
+    image_name = url.split("/")[-1]
+    file_path = f"{posters_folder}/{image_name}"  # Relative path for storage
 
-    if os.path.exists(destination_path):
-        print(f"The image '{destination_path}' already exists.")
+    # ✅ Check if the file already exists
+    # TODO: check why the following code always return False for the exists method
+    # if await asyncio.to_thread(default_storage.exists, file_path):
+    #     print(f"⚠️ Skipping {image_name} - already exists in storage")
+    #     movie['poster_status'] = 'Valid'
+    #     return movie
+
+    try:
+        default_storage.open(file_path)
+        print(f"⚠️ Skipping {image_name} - already exists in storage")
         movie['poster_status'] = 'Valid'
         return movie
+    except Exception as e:
+        # File doesn't exist
+        print(f"{file_path} does not exist, proceed to download")
+
     try:
         async with semaphore:  # Use semaphore to limit concurrency
             print(f"Download poster url: {url} for movie {movie["title"]}")
             # Send an asynchronous GET request
-            async with session.get(url, timeout=10) as response:
+            async with session.get(url, timeout=20) as response:
                 # Check if the request was successful
                 if response.status == 200:
-                    # Open the file in binary write mode asynchronously
-                    async with aiofiles.open(destination_path, "wb") as file:
-                        # Write the response content to the file
-                        await file.write(await response.read())
-                        print(f"Image downloaded and saved as '{destination_path}'")
-                        movie["poster_status"] = "Valid"
-                        print(f"Check poster url: {url} for movie {movie["title"]} IS VALID")
+                    # Read the binary content
+                    image_data = await response.read()
 
+                    #SYNCHRONOUSLY save the image to the destination path
+                    #TODO: wrap this function in some async context
+                    default_storage.save(file_path, ContentFile(image_data))
+
+                    movie["poster_status"] = "Valid"
+                    print(f"✅ Image saved at: {file_path}")
                 else:
                     print(f"Failed to download image. HTTP Status: {response.status}")
                     movie["poster_status"] = "Invalid"
                     print(f"Check poster url: {url} for movie {movie["title"]} IS INVALID")
 
-    except (ClientError, asyncio.TimeoutError):
+    except (ClientError, asyncio.TimeoutError) as error:
         movie["poster_status"] = "Invalid"
-        print(f"Check poster url: {url} for movie {movie["title"]} IS INVALID")
+        print(f"Check poster url: {image_name} for movie {movie["title"]} IS INVALID, error: {error}")
 
     return movie  # Return the updated movie object
-
 
 
 async def filter_movies_with_invalid_poster_url(movies):
     # Semaphore to limit concurrent requests
     semaphore = asyncio.Semaphore(10)  # Limit to 10 concurrent requests
-    posters_folder = settings.MEDIA_ROOT + "/posters"
+    posters_folder = "posters"
     async with ClientSession() as session:
         # Use asyncio.gather to run multiple tasks concurrently
         tasks = [download_image_url(movie, session, semaphore, posters_folder) for movie in movies]
@@ -115,8 +132,17 @@ class Command(BaseCommand):
             self.stderr.write(f"Error: File '{json_file}' is not valid JSON.")
             return
 
+
+        from storages.backends.s3boto3 import S3Boto3Storage
+
+        if isinstance(default_storage, S3Boto3Storage):
+            print("✅ Using S3 Storage")
+        else:
+            print("✅ Using Local FileSystem Storage")
+
         # Call the asynchronous method using asyncio.run
         filtered_movies = asyncio.run(filter_movies_with_invalid_poster_url(data))
+        print(f"Total filtered movies: {len(filtered_movies)}")
 
         #Populate the database with the filtered movies
         populate_movies(filtered_movies)
