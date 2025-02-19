@@ -13,6 +13,8 @@ Welcome to the **Movies Catalog** project! This Django application is designed t
   - [Create a Superuser](#create-a-superuser)
   - [Populate the Database](#populate-the-database)
   - [Clean Up the Database](#clean-up-the-database)
+  - [Movies Catalog - Django REST API](#-movies-catalog---django-rest-api)
+  - [Deployment options](#-deployment-options)
 - [License](#license)
 
 ---
@@ -198,7 +200,7 @@ This project is licensed under the MIT License. You are free to use, modify, and
 ```
 MIT License
 
-Copyright (c) 2024 <Your Name>
+Copyright (c) 2024 Meyer Assayag
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
