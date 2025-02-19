@@ -11,7 +11,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+
+import boto3
+from dotenv import load_dotenv
+from storages.backends.s3boto3 import S3Boto3Storage
+from django.core.files.storage import default_storage
+
 import os
+
+# Always load .env file first
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -25,7 +35,7 @@ SECRET_KEY = 'django-insecure-gpje&!$=ai*q&d@zflcco@46=^=#+w751mldoahhq($(6_9!+q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,6 +53,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'drf_yasg',
+
+    'storages',
 
     'movies',
     'users'
@@ -78,16 +90,65 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'movies_catalog.wsgi.application'
 
+# Database Configuration
+if os.getenv("ENV") == "production":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT', '5432'),
+        }
+    }
+
+    # Media Storage on S3
+
+    # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    # default_storage._wrapped = S3Boto3Storage()
+
+
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = os.getenv('AWS_REGION')
+    #AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    #AWS_S3_ADDRESSING_STYLE = "virtual"
+    #AWS_DEFAULT_ACL = None
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_QUERYSTRING_AUTH = False
+
+    MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
+    MEDIA_ROOT = None
+
+    s3_storage = S3Boto3Storage(
+        bucket_name=AWS_STORAGE_BUCKET_NAME,
+        region_name=AWS_S3_REGION_NAME,
+        querystring_auth=AWS_QUERYSTRING_AUTH
+    )
+    # Set it as the default storage
+    default_storage._wrapped = s3_storage
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / "db.sqlite3",
+        }
+    }
+
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -163,8 +224,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
