@@ -68,6 +68,7 @@ python manage.py runserver
 ```
 Access the application in your browser at `http://127.0.0.1:8000/`.
 
+
 ### Create a Superuser
 To manage the application via the Django admin panel, create a superuser:
 ```bash
@@ -90,6 +91,105 @@ python manage.py clean_db
 This script will delete all movie-related data from the database.
 
 ---
+### 🎥 Movies Catalog - Django REST API
+
+This project provides a REST API to manage and browse movies.
+
+#### 📌 API Usage Guide
+
+This project provides a REST API for interacting with the movie catalog. You can explore the available endpoints using **Swagger UI** at:
+
+🔗 **[Swagger API Documentation](http://localhost:8000/swagger/)**
+
+#### 🔑 Authentication & Authorization
+
+1. **Register a New User**  
+   - Send a `POST` request to `/api/register/` with your username and password.
+
+2. **Login to Get Access Token**  
+   - Send a `POST` request to `/api/login/` with your username and password.  
+   - The response will contain an **access token**.
+   - 
+3**Refresh Access Token**  
+   - Send a `POST` request to `/api/token/refresh` with your previous token.  
+   - The response will contain an **access token**.
+
+4**Use the Token for Authorization**  
+   - Copy the access token and include it in the "Authorize" section of Swagger.  
+   - The token should be prefixed with `Bearer ` (including the space).  
+   - Example:  
+     ```
+     Bearer your_access_token_here
+     ```
+
+#### 🎬 Available API Endpoints
+
+##### 🔍 Public Endpoints (Require Authentication)
+- **Get All Movies**: `GET /api/movies/`
+- **Get movies using query**:`GET /api/movies/q=searchTerm`
+- **Get Movie Details**: `GET /api/movies/{id}/`
+
+##### 🔧 Admin Endpoints (Require Admin Privileges)
+- **Add a New Movie**: `POST /api/movies/`
+- **Delete a Movie**: `DELETE /api/movies/{id}/`
+
+Ensure you have the correct authorization token before making requests. Happy coding! 🚀
+
+
+### 🚀 Deployment Options
+
+This project can be deployed using multiple methods. Below is an option to containerize the application using Docker.
+
+#### 🐳 Deploy with Docker
+
+You can containerize the application using the provided `Dockerfile`. Follow these steps to build and run the application inside a Docker container:
+
+1. **Ensure Docker is Installed**  
+   - Install [Docker](https://docs.docker.com/get-docker/) if you haven’t already.
+
+2. **Build the Docker Image**  
+   Run the following command in the project root directory (where the `Dockerfile` is located):
+   ```sh
+   docker build -t movies-catalog .
+   ```
+
+3. **Run the Container**  
+   Start the application with:
+   ```sh
+   docker run -p 8000:8000 movies-catalog
+   ```
+   This will make the application accessible at `http://localhost:8000/`.
+
+4.**Production Deployment**  
+   For a production environment, you can provide an environment file to configure the application settings dynamically.
+
+   The application supports the connection to a remote Postgresql database and AWS S3 bucket for media storage.
+
+   The application assumes the server has all the permissions required (IAM Role) to access the database and the remote storage.
+   If you are interested in direct access using AWS credentials, add them in .settings.py:
+
+        `AWS_ACCESS_KEY_ID =os.environ.get("AWS_ACCESS_KEY_ID")
+        AWS_SECRET_ACCESS_KEY=os.environ.get("AWS_SECRET_ACCESS_KEY")`
+
+   - A sample environment file (`.env.sample`) is included in the project.
+   - Copy and rename it to `.env`, then update the necessary variables.
+   - You **must** set `ENV=production` to apply production-specific configurations.
+
+   Example `.env` file:
+   ```
+   ENV=production
+   AWS_STORAGE_BUCKET_NAME=your-aws-bucket-name
+   AWS_REGION=aws-region
+   DB_HOST=postresql host
+   
+   ```
+
+   Use the `--env-file` flag when running the container:
+   ```sh
+   docker run --env-file .env -p 8000:8000 movies-catalog
+   ```
+
+This ensures that the application is running with the correct production settings. 🎬🐳🚀
 
 ## License
 
