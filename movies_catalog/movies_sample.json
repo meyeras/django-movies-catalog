@@ -1,7 +1,7 @@
 [
     {
         "title": "The Scribbler",
-        "year": 2014,
+        "year_of_release": 2014,
         "cast": [
             "Katie Cassidy",
             "Garret Dillahunt",
@@ -18,7 +18,7 @@
     },
     {
         "title": "Dope",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Shameik Moore",
             "Tony Revolori",
@@ -35,7 +35,7 @@
     },
     {
         "title": "Insidious: The Last Key",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Lin Shaye",
             "Angus Sampson",
@@ -52,7 +52,7 @@
     },
     {
         "title": "Spider-Man: Homecoming",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Tom Holland",
             "Michael Keaton",
@@ -68,7 +68,7 @@
     },
     {
         "title": "Bless Me, Ultima",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Míriam Colón",
             "Benito Martinez",
@@ -84,7 +84,7 @@
     },
     {
         "title": "Preacher's Kid",
-        "year": 2010,
+        "year_of_release": 2010,
         "cast": [
             "LeToya Luckett",
             "Rae'Ven Larrymore Kelly",
@@ -100,7 +100,7 @@
     },
     {
         "title": "Marriage Story",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Scarlett Johansson",
             "Adam Driver",
@@ -116,7 +116,7 @@
     },
     {
         "title": "Big Eyes",
-        "year": 2014,
+        "year_of_release": 2014,
         "cast": [
             "Amy Adams",
             "Christoph Waltz",
@@ -133,7 +133,7 @@
     },
     {
         "title": "The Aeronauts",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Felicity Jones",
             "Eddie Redmayne",
@@ -150,7 +150,7 @@
     },
     {
         "title": "For Colored Girls",
-        "year": 2010,
+        "year_of_release": 2010,
         "cast": [
             "Janet Jackson",
             "Thandie Newton",
@@ -166,7 +166,7 @@
     },
     {
         "title": "Dredd",
-        "year": 2012,
+        "year_of_release": 2012,
         "cast": [
             "Karl Urban",
             "Olivia Thirlby",
@@ -183,7 +183,7 @@
     },
     {
         "title": "Irrational Man",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Jamie Blackley",
             "Joaquin Phoenix",
@@ -201,7 +201,7 @@
     },
     {
         "title": "The Divergent Series: Allegiant",
-        "year": 2016,
+        "year_of_release": 2016,
         "cast": [
             "Shailene Woodley",
             "Theo James",
@@ -218,7 +218,7 @@
     },
     {
         "title": "Thank You for Your Service",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Miles Teller",
             "Haley Bennett",
@@ -236,7 +236,7 @@
     },
     {
         "title": "Captain Underpants: The First Epic Movie",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Kevin Hart",
             "Ed Helms",
@@ -255,7 +255,7 @@
     },
     {
         "title": "Us",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Lupita Nyong'o",
             "Winston Duke",
@@ -271,7 +271,7 @@
     },
     {
         "title": "Fair Game",
-        "year": 2010,
+        "year_of_release": 2010,
         "cast": [
             "Naomi Watts",
             "Sean Penn",
@@ -289,7 +289,7 @@
     },
     {
         "title": "Attarintiki Daredi",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Pawan Kalyan",
             "Samantha",
@@ -306,7 +306,7 @@
     },
     {
         "title": "Social Animals",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Noël Wells",
             "Josh Radnor",
@@ -322,7 +322,7 @@
     },
     {
         "title": "The Highwaymen",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Kevin Costner",
             "Woody Harrelson",
@@ -340,7 +340,7 @@
     },
     {
         "title": "Fist Fight",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Ice Cube",
             "Charlie Day",
@@ -356,7 +356,7 @@
     },
     {
         "title": "Vampires Suck",
-        "year": 2010,
+        "year_of_release": 2010,
         "cast": [
             "Matt Lanter",
             "Jenn Proske",
@@ -372,7 +372,7 @@
     },
     {
         "title": "The Man from U.N.C.L.E.",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Henry Cavill",
             "Armie Hammer",
@@ -388,7 +388,7 @@
     },
     {
         "title": "Final Portrait",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Geoffrey Rush",
             "Armie Hammer",
@@ -404,7 +404,7 @@
     },
     {
         "title": "A Dog's Journey",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Dennis Quaid",
             "Josh Gad",
@@ -422,7 +422,7 @@
     },
     {
         "title": "Sleepless",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Jamie Foxx",
             "Dermot Mulroney",
@@ -439,7 +439,7 @@
     },
     {
         "title": "Fast & Furious 6",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Vin Diesel",
             "Dwayne Johnson",
@@ -455,7 +455,7 @@
     },
     {
         "title": "Happy Death Day 2U",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Jessica Rothe",
             "Israel Broussard",
@@ -473,7 +473,7 @@
     },
     {
         "title": "Hidden Figures",
-        "year": 2016,
+        "year_of_release": 2016,
         "cast": [
             "Taraji P. Henson",
             "Octavia Spencer",
@@ -490,7 +490,7 @@
     },
     {
         "title": "Zero Dark Thirty",
-        "year": 2012,
+        "year_of_release": 2012,
         "cast": [
             "Jessica Chastain",
             "Chris Pratt",
@@ -506,7 +506,7 @@
     },
     {
         "title": "Pitch Perfect 3",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Anna Kendrick",
             "Anna Camp",
@@ -523,7 +523,7 @@
     },
     {
         "title": "Jack Reacher",
-        "year": 2012,
+        "year_of_release": 2012,
         "cast": [
             "Tom Cruise",
             "Rosamund Pike",
@@ -540,7 +540,7 @@
     },
     {
         "title": "Dinner for Schmucks",
-        "year": 2010,
+        "year_of_release": 2010,
         "cast": [
             "Steve Carell",
             "Paul Rudd",
@@ -556,7 +556,7 @@
     },
     {
         "title": "Suspiria",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Dakota Johnson",
             "Tilda Swinton",
@@ -573,7 +573,7 @@
     },
     {
         "title": "Mark Felt: The Man Who Brought Down the White House",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Liam Neeson",
             "Diane Lane",
@@ -591,7 +591,7 @@
     },
     {
         "title": "What Men Want",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Taraji P. Henson",
             "Tracy Morgan",
@@ -608,7 +608,7 @@
     },
     {
         "title": "Decoding Annie Parker",
-        "year": 2014,
+        "year_of_release": 2014,
         "cast": [
             "Samantha Morton",
             "Alice Eve",
@@ -624,7 +624,7 @@
     },
     {
         "title": "Teen Titans Go! To the Movies",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Scott Menville",
             "Khary Payton",
@@ -642,7 +642,7 @@
     },
     {
         "title": "The Farewell",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Awkwafina",
             "Tzi Ma",
@@ -659,7 +659,7 @@
     },
     {
         "title": "Mississippi Grind",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Ryan Reynolds",
             "Ben Mendelsohn",
@@ -676,7 +676,7 @@
     },
     {
         "title": "War for the Planet of the Apes",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Andy Serkis",
             "Gabriel Chavarria",
@@ -692,7 +692,7 @@
     },
     {
         "title": "The Lovers",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Debra Winger",
             "Tracy Letts",
@@ -709,7 +709,7 @@
     },
     {
         "title": "Black Panther",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Chadwick Boseman",
             "Michael B. Jordan",
@@ -725,7 +725,7 @@
     },
     {
         "title": "Meet the Blacks",
-        "year": 2016,
+        "year_of_release": 2016,
         "cast": [
             "Mike Epps",
             "Gary Owen",
@@ -743,7 +743,7 @@
     },
     {
         "title": "Tracers",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Taylor Lautner",
             "Marie Avgeropoulos",
@@ -759,7 +759,7 @@
     },
     {
         "title": "Here Comes the Boom",
-        "year": 2012,
+        "year_of_release": 2012,
         "cast": [
             "Kevin James",
             "Salma Hayek",
@@ -776,7 +776,7 @@
     },
     {
         "title": "CHiPs",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Dax Shepard",
             "Michael Peña",
@@ -793,7 +793,7 @@
     },
     {
         "title": "Pokémon the Movie: Genesect and the Legend Awakened",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Rica Matsumoto",
             "Ikue Ōtani",
@@ -809,7 +809,7 @@
     },
     {
         "title": "Sophie and the Rising Sun",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Julianne Nicholson",
             "Margo Martindale",
@@ -825,7 +825,7 @@
     },
     {
         "title": "Paranormal Activity: The Ghost Dimension",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Chris J. Murray",
             "Brittany Shaw",
@@ -843,7 +843,7 @@
     },
     {
         "title": "Jumanji: Welcome to the Jungle",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Dwayne Johnson",
             "Kevin Hart",
@@ -861,7 +861,7 @@
     },
     {
         "title": "The Call",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Abigail Breslin",
             "Halle Berry",
@@ -878,7 +878,7 @@
     },
     {
         "title": "Arthur Newman",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Colin Firth",
             "Emily Blunt",
@@ -895,7 +895,7 @@
     },
     {
         "title": "A Separation",
-        "year": 2011,
+        "year_of_release": 2011,
         "cast": [
             "Leila Hatami",
             "Peyman Moaadi",
@@ -911,7 +911,7 @@
     },
     {
         "title": "Honey Boy",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Shia LaBeouf",
             "Lucas Hedges",
@@ -927,7 +927,7 @@
     },
     {
         "title": "Once Upon a Time in Hollywood",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Leonardo DiCaprio",
             "Brad Pitt",
@@ -944,7 +944,7 @@
     },
     {
         "title": "Child 44",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Tom Hardy",
             "Gary Oldman",
@@ -961,7 +961,7 @@
     },
     {
         "title": "Footnote",
-        "year": 2012,
+        "year_of_release": 2012,
         "cast": [
             "Shlomo Bar Aba",
             "Lior Ashkenazi",
@@ -977,7 +977,7 @@
     },
     {
         "title": "So Young",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Mark Chao",
             "Tong Liya",
@@ -993,7 +993,7 @@
     },
     {
         "title": "Get Low",
-        "year": 2010,
+        "year_of_release": 2010,
         "cast": [
             "Robert Duvall",
             "Sissy Spacek",
@@ -1009,7 +1009,7 @@
     },
     {
         "title": "Shaft",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Samuel L. Jackson",
             "Jessie Usher",
@@ -1026,7 +1026,7 @@
     },
     {
         "title": "Daddy's Home 2",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Will Ferrell",
             "Mark Wahlberg",
@@ -1042,7 +1042,7 @@
     },
     {
         "title": "Itsy Bitsy",
-        "year": 2019,
+        "year_of_release": 2019,
         "cast": [
             "Bruce Davison",
             "Denise Crosby",
@@ -1058,7 +1058,7 @@
     },
     {
         "title": "Wonderstruck",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Oakes Fegley",
             "Julianne Moore",
@@ -1075,7 +1075,7 @@
     },
     {
         "title": "Fifty Shades of Grey",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Dakota Johnson",
             "Jamie Dornan",
@@ -1093,7 +1093,7 @@
     },
     {
         "title": "Thor: Ragnarok",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Chris Hemsworth",
             "Tom Hiddleston",
@@ -1109,7 +1109,7 @@
     },
     {
         "title": "The Wicker Tree",
-        "year": 2012,
+        "year_of_release": 2012,
         "cast": [
             "Graham McTavish",
             "Jacqueline Leonard",
@@ -1125,7 +1125,7 @@
     },
     {
         "title": "The Humbling",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Al Pacino",
             "Greta Gerwig",
@@ -1142,7 +1142,7 @@
     },
     {
         "title": "Da Sweet Blood of Jesus",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Zaraah Abrahams",
             "Stephen Tyrone Williams",
@@ -1158,7 +1158,7 @@
     },
     {
         "title": "No Good Deed",
-        "year": 2014,
+        "year_of_release": 2014,
         "cast": [
             "Idris Elba",
             "Taraji P. Henson",
@@ -1174,7 +1174,7 @@
     },
     {
         "title": "Sorry to Bother You",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Lakeith Stanfield",
             "Tessa Thompson",
@@ -1190,7 +1190,7 @@
     },
     {
         "title": "The Best Man Holiday",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Taye Diggs",
             "Nia Long",
@@ -1207,7 +1207,7 @@
     },
     {
         "title": "Wonder Wheel",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Kate Winslet",
             "Justin Timberlake",
@@ -1224,7 +1224,7 @@
     },
     {
         "title": "Cars 3",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Owen Wilson",
             "Cristela Alonzo",
@@ -1243,7 +1243,7 @@
     },
     {
         "title": "The Chronicles of Narnia: The Voyage of the Dawn Treader",
-        "year": 2010,
+        "year_of_release": 2010,
         "cast": [
             "Ben Barnes",
             "Skandar Keynes",
@@ -1261,7 +1261,7 @@
     },
     {
         "title": "Everest",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Jason Clarke",
             "Josh Brolin",
@@ -1278,7 +1278,7 @@
     },
     {
         "title": "Teenage Mutant Ninja Turtles: Out of the Shadows",
-        "year": 2016,
+        "year_of_release": 2016,
         "cast": [
             "Megan Fox",
             "Will Arnett",
@@ -1294,7 +1294,7 @@
     },
     {
         "title": "The Wolf of Wall Street",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Leonardo DiCaprio",
             "Jonah Hill",
@@ -1312,7 +1312,7 @@
     },
     {
         "title": "The Canyons",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Lindsay Lohan",
             "James Deen",
@@ -1330,7 +1330,7 @@
     },
     {
         "title": "A Burning Hot Summer",
-        "year": 2012,
+        "year_of_release": 2012,
         "cast": [
             "Monica Bellucci",
             "Louis Garrel",
@@ -1346,7 +1346,7 @@
     },
     {
         "title": "Furry Vengeance",
-        "year": 2010,
+        "year_of_release": 2010,
         "cast": [
             "Brendan Fraser",
             "Brooke Shields",
@@ -1365,7 +1365,7 @@
     },
     {
         "title": "A Bad Moms Christmas",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Mila Kunis",
             "Kristen Bell",
@@ -1381,7 +1381,7 @@
     },
     {
         "title": "The Fifth Estate",
-        "year": 2013,
+        "year_of_release": 2013,
         "cast": [
             "Benedict Cumberbatch",
             "Daniel Brühl",
@@ -1398,7 +1398,7 @@
     },
     {
         "title": "Lizzie",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Chloë Sevigny",
             "Kristen Stewart",
@@ -1415,7 +1415,7 @@
     },
     {
         "title": "Saving Christmas",
-        "year": 2014,
+        "year_of_release": 2014,
         "cast": [
             "Kirk Cameron",
             "Darren Doane",
@@ -1431,7 +1431,7 @@
     },
     {
         "title": "Madagascar 3: Europe's Most Wanted",
-        "year": 2012,
+        "year_of_release": 2012,
         "cast": [
             "Ben Stiller",
             "Chris Rock",
@@ -1448,7 +1448,7 @@
     },
     {
         "title": "In Darkness",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Natalie Dormer",
             "Emily Ratajkowski",
@@ -1464,7 +1464,7 @@
     },
     {
         "title": "Lamb",
-        "year": 2016,
+        "year_of_release": 2016,
         "cast": [
             "Ross Partridge",
             "Oona Laurence",
@@ -1480,7 +1480,7 @@
     },
     {
         "title": "T2 Trainspotting",
-        "year": 2017,
+        "year_of_release": 2017,
         "cast": [
             "Ewan McGregor",
             "Jonny Lee Miller",
@@ -1497,7 +1497,7 @@
     },
     {
         "title": "Aquaman",
-        "year": 2018,
+        "year_of_release": 2018,
         "cast": [
             "Jason Momoa",
             "Amber Heard",
@@ -1513,7 +1513,7 @@
     },
     {
         "title": "Pixels",
-        "year": 2015,
+        "year_of_release": 2015,
         "cast": [
             "Adam Sandler",
             "Kevin James",
@@ -1530,7 +1530,7 @@
     },
     {
         "title": "The Sitter",
-        "year": 2011,
+        "year_of_release": 2011,
         "cast": [
             "Jonah Hill",
             "Sam Rockwell",

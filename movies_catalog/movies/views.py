@@ -1,3 +1,5 @@
+import time
+
 from django.core.files.storage import default_storage
 from django.shortcuts import render, redirect
 from drf_yasg import openapi
@@ -14,12 +16,13 @@ from .forms import MovieForm
 from django.contrib.auth.decorators import user_passes_test
 
 from django.db.models import Q  # For complex lookups
-from .serializers import MovieSerializer
+from .serializers import MovieSerializer#, SimpleMovieSerializer
+
+from django.conf import settings
 
 
 def get_movies(request, search_query=None):
     movies = Movie.objects.all()
-
     if search_query:
         # Filter movies by title or actor name (case-insensitive search)
         movies = movies.filter(
@@ -49,6 +52,13 @@ def movies_list_with_search(request):
 def movie_detail(request, movie_id):
     movie = get_movie_detail(request, movie_id)
     return render(request, 'movies/movie_detail.html', {'movie': movie})
+
+def redirect_to_chat(request, movie_id):
+    """Generates JWT and redirects user to React Chat App for the selected movie room."""
+    movie = get_object_or_404(Movie, id=movie_id)
+    # Redirect to React Chat App with username and movie title
+    chat_url = f"{settings.CHAT_APP_ROOM_URL}?username={request.user.username}&room={movie.title.lower()}"
+    return redirect(chat_url)
 
 @user_passes_test(is_admin)
 def register_movie(request):
@@ -90,7 +100,8 @@ class MovieAPIView(APIView):
 
     def get(self, request, movie_id=None, *args, **kwargs):
         """Get movie list (public)"""
-        movies = get_movies(request)
+        search_query = request.query_params.get('q')
+        movies = get_movies(request, search_query).prefetch_related('actors')
         serializer = MovieSerializer(movies, many=True)
         return Response(serializer.data)
 

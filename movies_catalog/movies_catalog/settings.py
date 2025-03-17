@@ -41,13 +41,15 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    #'django.contrib.sites',
 
     'rest_framework',
     'rest_framework_simplejwt',
@@ -61,6 +63,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -90,8 +94,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'movies_catalog.wsgi.application'
 
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
 # Database Configuration
-if os.getenv("ENV") == "production":
+if os.getenv('DATABASE_ENGINE') == 'postgresql':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -102,33 +109,6 @@ if os.getenv("ENV") == "production":
             'PORT': os.getenv('DB_PORT', '5432'),
         }
     }
-
-    # Media Storage on S3
-
-    # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    # default_storage._wrapped = S3Boto3Storage()
-
-
-    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_REGION_NAME = os.getenv('AWS_REGION')
-    #AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-    #AWS_S3_ADDRESSING_STYLE = "virtual"
-    #AWS_DEFAULT_ACL = None
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    AWS_QUERYSTRING_AUTH = False
-
-    MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
-    MEDIA_ROOT = None
-
-    s3_storage = S3Boto3Storage(
-        bucket_name=AWS_STORAGE_BUCKET_NAME,
-        region_name=AWS_S3_REGION_NAME,
-        querystring_auth=AWS_QUERYSTRING_AUTH
-    )
-    # Set it as the default storage
-    default_storage._wrapped = s3_storage
-
 else:
     DATABASES = {
         'default': {
@@ -137,18 +117,55 @@ else:
         }
     }
 
+if os.getenv('MEDIA_STORAGE') == 'aws_s3':
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = os.getenv('AWS_REGION')
+    AWS_QUERYSTRING_AUTH = False
+
+    MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
+    MEDIA_ROOT = None
+    s3_storage = None
+    if os.getenv('USE_AWS_CREDENTIALS','False').lower() == 'true':
+        s3_storage = S3Boto3Storage(
+            bucket_name=AWS_STORAGE_BUCKET_NAME,
+            region_name=AWS_S3_REGION_NAME,
+            querystring_auth=AWS_QUERYSTRING_AUTH,
+            access_key=AWS_ACCESS_KEY_ID,
+            secret_key=AWS_SECRET_ACCESS_KEY
+        )
+    else:
+        s3_storage = S3Boto3Storage(
+            bucket_name=AWS_STORAGE_BUCKET_NAME,
+            region_name=AWS_S3_REGION_NAME,
+            querystring_auth=AWS_QUERYSTRING_AUTH
+        )
+    # Set it as the default storage
+    default_storage._wrapped = s3_storage
+
+else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+if os.getenv('USE_REDIS_FOR_SESSIONS_CACHE', 'False').lower() == 'true':
+    redis_host = os.getenv("REDIS_HOST", '127.0.0.1')
+    redis_port = int(os.getenv("REDIS_PORT", '6379'))
+    redis_db_number = int(os.getenv("REDIS_DB_NUMBER", '1'))
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': f'redis://{redis_host}:{redis_port}/{redis_db_number}',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+    SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+    SESSION_CACHE_ALIAS = "default"
+    SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # 1 week
+    SESSION_SAVE_EVERY_REQUEST = True
+
+
 
 
 # Password validation
@@ -228,3 +245,25 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = False
+
+CHAT_APP_URL = os.getenv("CHAT_APP_URL", "http://localhost:3000")  # Default to localhost for dev
+CHAT_APP_ROOM_URL = os.getenv("CHAT_APP_ROOM_URL", "http://localhost:3000/chat/")
+# Allow requests from React app
+# CORS_ALLOWED_ORIGINS = [
+#     CHAT_APP_URL
+# ]
+# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+# Allow all HTTP methods (GET, POST, OPTIONS, etc.)
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+
+# Allow Authorization headers (for JWT tokens)
+CORS_ALLOW_HEADERS = ["Authorization", "Content-Type"]
+
+
+# from datetime import timedelta
+#
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),  # Set to 1 hour
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Set to 7 days
+# }
