@@ -15,5 +15,10 @@
                 <p>{{ movie.description }}</p>
             </div>
         </div>
+        <!-- Button centered below the movie info -->
+        <div class="chat-button-container">
+            <a href="{% url 'redirect_to_movie_chat' movie.id %}" class="chat-button">Go to Room Chat</a>
+        </div>
+
 
 {% endblock %}

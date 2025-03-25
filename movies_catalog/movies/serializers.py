@@ -1,6 +1,11 @@
 from rest_framework import serializers
 from .models import Movie, Actor
 
+class SimpleMovieSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    title = serializers.CharField()
+    year_of_release = serializers.IntegerField()
+
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor

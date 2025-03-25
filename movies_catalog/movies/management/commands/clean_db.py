@@ -39,12 +39,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Delete all movies
-        movies_deleted, _ = Movie.objects.all().delete()
-        self.stdout.write(self.style.SUCCESS(f"Deleted {movies_deleted} movies."))
+        movies_count = Movie.objects.count()
+        Movie.objects.all().delete()
+        self.stdout.write(self.style.SUCCESS(f"Deleted {movies_count} movies."))
 
         # Delete all actors
-        actors_deleted, _ = Actor.objects.all().delete()
-        self.stdout.write(self.style.SUCCESS(f"Deleted {actors_deleted} actors."))
+        actors_count = Actor.objects.count()
+        Actor.objects.all().delete()
+        self.stdout.write(self.style.SUCCESS(f"Deleted {actors_count} actors."))
 
         # Cleanup posters folder
         if isinstance(default_storage, S3Boto3Storage): # if the posters are in S3

@@ -81,6 +81,92 @@ async def filter_movies_with_invalid_poster_url(movies):
         del movie['poster_status']
     return filtered_movies
 
+def batch_populate_movies(movies_data):
+    # Step 1: Fetch only relevant movies (Correctly combining title & year_of_release)
+    movie_identifiers = [(entry["title"], entry["year_of_release"]) for entry in movies_data]
+
+    # Fetch only movies matching any title OR any year
+    candidate_movies = Movie.objects.filter(
+        title__in=[m[0] for m in movie_identifiers],
+        year_of_release__in=[m[1] for m in movie_identifiers]
+    )
+
+    # Now filter in Python to ensure (title, year) match correctly
+    existing_movies = {
+        (m.title, m.year_of_release): m
+        for m in candidate_movies
+        if (m.title, m.year_of_release) in movie_identifiers
+    }
+
+    # Step 2: Fetch only relevant actors
+    actor_names = {name for entry in movies_data for name in entry["cast"]}
+    existing_actors = {a.name: a for a in Actor.objects.filter(name__in=actor_names)}
+
+    movies_to_create = []
+    actors_to_create = set()
+    movie_actor_links = []
+
+    # Step 3: Prepare movies & actors for bulk insert
+    for entry in movies_data:
+        movie_key = (entry["title"], entry["year_of_release"])
+
+        if movie_key not in existing_movies:  # If movie doesn't exist
+            movie = Movie(
+                title=entry["title"],
+                year_of_release=entry["year_of_release"],
+                description=entry["description"],
+                poster=entry["poster"],
+                director=entry["director"]
+            )
+            movies_to_create.append(movie)
+
+        # Collect actor names to avoid duplicate queries
+        if entry["cast"]:
+            for name in entry["cast"]:
+                if name not in existing_actors:
+                    actors_to_create.add(name)
+
+    # Step 4: Bulk create movies (but they don't have IDs yet!)
+    movies_count = Movie.objects.count()
+    Movie.objects.bulk_create(movies_to_create, ignore_conflicts=True)
+    movies_created_count = Movie.objects.count() - movies_count
+
+    # Step 5: Fetch newly inserted movies to get their IDs (Correct Filtering)
+    candidate_movies = Movie.objects.filter(
+        title__in=[m.title for m in movies_to_create],
+        year_of_release__in=[m.year_of_release for m in movies_to_create]
+    )
+
+    # Now filter in Python to ensure (title, year) match correctly
+    existing_movies.update({
+        (m.title, m.year_of_release): m
+        for m in candidate_movies
+        if (m.title, m.year_of_release) in movie_identifiers
+    })
+
+    # Step 6: Bulk create actors (avoiding duplicates)
+    actors_to_create = [Actor(name=name) for name in actors_to_create]
+    actors_count = Actor.objects.count()
+    Actor.objects.bulk_create(actors_to_create, ignore_conflicts=True)
+    actors_created_count = Actor.objects.count() - actors_count
+
+    # Refresh existing actors with newly created ones
+    existing_actors.update({a.name: a for a in Actor.objects.filter(name__in=actor_names)})
+
+    # Step 7: Prepare many-to-many relationships (now with correct IDs)
+    for entry in movies_data:
+        movie = existing_movies[(entry["title"], entry["year_of_release"])]
+
+        if entry["cast"]:
+            for name in entry["cast"]:
+                actor = existing_actors[name]
+                movie_actor_links.append(movie.actors.through(movie_id=movie.id, actor_id=actor.id))
+
+    # Step 8: Bulk insert movie-actor relationships
+    Movie.actors.through.objects.bulk_create(movie_actor_links, ignore_conflicts=True)
+
+    print(f"{movies_created_count} new movies added, {actors_created_count} actors added")
+
 
 def populate_movies(movies):
     # Populate the database
@@ -89,7 +175,7 @@ def populate_movies(movies):
         try:
             movie, created = Movie.objects.get_or_create(
                 title=entry['title'],
-                year_of_release=entry['year'],
+                year_of_release=entry['year_of_release'],
                 description=entry['description'],
                 poster=entry['poster'],
                 director=entry['director']
@@ -119,7 +205,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **kwargs):
-        json_file = kwargs['json_file']
+        json_file = kwargs.get('json_file') or 'movies_sample.json'
 
         # Load the JSON file
         try:
@@ -145,4 +231,11 @@ class Command(BaseCommand):
         print(f"Total filtered movies: {len(filtered_movies)}")
 
         #Populate the database with the filtered movies
-        populate_movies(filtered_movies)
+
+        # num_duplicates = 10  # Adjust to test different dataset sizes
+        # movies_data = filtered_movies * num_duplicates  # Multiply list
+        # import random
+        # random.shuffle(movies_data)  # Shuffle the list
+        # batch_populate_movies(movies_data)
+
+        batch_populate_movies(filtered_movies)
