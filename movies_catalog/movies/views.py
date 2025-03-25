@@ -16,9 +16,12 @@ from .forms import MovieForm
 from django.contrib.auth.decorators import user_passes_test
 
 from django.db.models import Q  # For complex lookups
-from .serializers import MovieSerializer#, SimpleMovieSerializer
+from .serializers import MovieSerializer, SimpleMovieSerializer  # , SimpleMovieSerializer
 
 from django.conf import settings
+
+from utils.utils import timeit
+
 
 
 def get_movies(request, search_query=None):
@@ -32,7 +35,7 @@ def get_movies(request, search_query=None):
     return movies
 
 def get_movie_detail(request, movie_id):
-    movie = Movie.objects.get(id=movie_id)
+    movie = Movie.objects.prefetch_related('actors').get(id=movie_id)
     return movie
 
 def is_admin(user):
@@ -43,12 +46,14 @@ def movies_list(request):
     movies = get_movies(request)
     return render(request, 'movies/movies_list.html', {'movies': movies})
 
+@timeit
 def movies_list_with_search(request):
     # Get the search query from the GET parameters
     search_query = request.GET.get('q', '')  # 'q' is the query parameter
     movies = get_movies(request, search_query)
     return render(request, 'movies/movies_list.html', {'movies': movies, 'search_query': search_query})
 
+#@timeit
 def movie_detail(request, movie_id):
     movie = get_movie_detail(request, movie_id)
     return render(request, 'movies/movie_detail.html', {'movie': movie})
@@ -97,7 +102,7 @@ class MovieAPIView(APIView):
         responses={200: MovieSerializer(many=True)},
         security=[{'Bearer': []}]
     )
-
+    @timeit
     def get(self, request, movie_id=None, *args, **kwargs):
         """Get movie list (public)"""
         search_query = request.query_params.get('q')

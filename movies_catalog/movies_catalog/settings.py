@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
 from pathlib import Path
 
 import boto3
@@ -35,8 +34,11 @@ SECRET_KEY = 'django-insecure-gpje&!$=ai*q&d@zflcco@46=^=#+w751mldoahhq($(6_9!+q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+# Allow all hosts (for cluster communication), fallback to '*'
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
+# Lock down CSRF trusted origins to avoid external CSRF attacks
+CSRF_TRUSTED_ORIGINS = os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', 'https://localhost').split(',')
 
 # Application definition
 
@@ -59,10 +61,11 @@ INSTALLED_APPS = [
     'storages',
 
     'movies',
-    'users'
+    'users',
 ]
 
 MIDDLEWARE = [
+    'movies_catalog.middlewares.TimingMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
@@ -267,3 +270,58 @@ CORS_ALLOW_HEADERS = ["Authorization", "Content-Type"]
 #     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),  # Set to 1 hour
 #     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Set to 7 days
 # }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+            'stream': 'ext://sys.stdout',  # Send logs to stdout (captured by Kubernetes)
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} [{levelname}] {name}: {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname}: {message}',
+            'style': '{',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'movies-catalog': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'movies-catalog.*': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
+
+if os.getenv('STORE_LOGS_TO_FILE').lower() == 'true':
+    LOGGING['handlers']['file'] =  {
+        'level': 'DEBUG',  # Log all levels to the file
+        'class': 'logging.FileHandler',
+        'filename': os.getenv('DJANGO_LOG_FILE', os.path.join(BASE_DIR, 'django.log')),
+        'formatter': 'verbose',
+    }
+    LOGGING['root']['handlers'].append('file')
+    for logger in LOGGING['loggers'].values():
+        if 'handlers' in logger:
+            logger['handlers'].append('file')
